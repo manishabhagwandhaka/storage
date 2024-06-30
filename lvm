@@ -1,0 +1,22 @@
+centos 7
+1 machine
+add 3-disk  of 10GB   or   20GB
+lsblk
+pvcreate /dev/sdb /dev/sdc
+pvs
+vgcreate HPCSA /dev/sdb /dev/sdc
+vgs
+lvcreate -n hpcsa_lab --size 1G HPCSA
+lvs
+mkfs.ext4 /dev/mapper/HPCSA-hpcsa_lab
+mkdir lab
+mount /dev/mapper/HPCSA-hpcsa_lab lab
+lvextend -L +2G /dev/mapper/HPCSA-hpcsa_lab
+resize2fs /dev/mapper/HPCSA-hpcsa_lab
+lvcreate -L 1GB -s -n hpcsa_lab_snap /dev/mapper/HPCSA-hpcsa_lab
+lvs
+xfs.growfs /dev/mapper/HPCSA-hpcsa_lab
+df -h
+lvconvert --merge /dev/mapper/HPCSA-hpcsa_lab_snap
+lvcreate -L 1GB -s -n hpcsa_lab_snap /dev/mapper/HPCSA-hpcsa_lab
+
