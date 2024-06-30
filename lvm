@@ -13,10 +13,10 @@ mkdir lab
 mount /dev/mapper/HPCSA-hpcsa_lab lab
 lvextend -L +2G /dev/mapper/HPCSA-hpcsa_lab
 resize2fs /dev/mapper/HPCSA-hpcsa_lab
-lvcreate -L 1GB -s -n hpcsa_lab_snap /dev/mapper/HPCSA-hpcsa_lab
+lvcreate -L 1GB -s -n hpcsa_lab_snap /dev/mapper/HPCSA-hpcsa_lab --create snap shot
 lvs
 xfs.growfs /dev/mapper/HPCSA-hpcsa_lab
 df -h
 lvconvert --merge /dev/mapper/HPCSA-hpcsa_lab_snap
-lvcreate -L 1GB -s -n hpcsa_lab_snap /dev/mapper/HPCSA-hpcsa_lab
+lvcreate -L 1GB -s -n hpcsa_lab_snap /dev/mapper/HPCSA-hpcsa_lab     ---merge snap short
 
