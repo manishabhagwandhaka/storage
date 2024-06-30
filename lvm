@@ -19,4 +19,20 @@ xfs.growfs /dev/mapper/HPCSA-hpcsa_lab
 df -h
 lvconvert --merge /dev/mapper/HPCSA-hpcsa_lab_snap
 lvcreate -L 1GB -s -n hpcsa_lab_snap /dev/mapper/HPCSA-hpcsa_lab     ---merge snap short
-
+------------
+lsblk
+pvcreate /dev/nvme02
+pvs
+vgcrete hpcsa /dev/nvme02
+vgs
+lvcreate -L 1G -n mylv hpcsa
+lvs
+mkfs.xfs /dev/hpcsa/mylv
+mkdir /mnt/lvm1
+mount /dev/hpcsa/mylv /mnt/lvm1
+lsblk
+df -h
+lvextend -L 2G /dev/hpcsa/mylv
+lvs
+xfs_growfs /dev/hpcsa/mylv
+df -h
