@@ -25,3 +25,6 @@ cd
 mount /dev/md0 /mnt/raid5
 cd /mnt/raid5
 ls                         .........   now that test.txt should be present
+now add one more hard drive 
+and add in your cluster using 
+mdadm --manage /dev/md0 --add /dev/sdf
