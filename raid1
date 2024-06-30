@@ -1,0 +1,25 @@
+centos 7
+1 machine
+add 2-disk  of 10GB   or   20GB
+lsblk
+yum install mdadm -y
+mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sdb /dev/sdc
+cat /proc/mdstat
+mdadm  --examine /dev/sdb
+mdadm  --examine /dev/sdc
+mdadm  --detail /dev/md0
+mkfs.ext4 /dev/md0
+mkdir /mnt/raid1
+mount /dev/md0 /mnt/raid1
+df -h
+cd /mnt/raid1
+ls
+vi test.txt          ....  create test.file and the below contents
+remove 1 disk . reset and again login
+lsblk
+cd /mnt/raid1
+ls                      .......  now that test.file should not be present to add follow below
+cd
+mount /dev/md0 /mnt/raid1
+cd /mnt/raid1
+ls                         .........   now that test.txt should be present
